@@ -40,10 +40,10 @@ loadTasksFromDir('client/gulp');
 gulp.task('clean', require('del').bind(null, ['deployProd', 'deployDev']));
 
 if (!live) {
-  gulp.task('default', ['extras', 'fonts', 'styles', 'html', 'images', 'scripts', 'styles']);
+  gulp.task('default', ['extras', 'fonts', 'styles', 'views', 'html', 'assets', 'scripts', 'styles']);
 } else { // live build
   global.bs = require('browser-sync').create();
-  gulp.task('default', ['nodemon', 'extras', 'fonts', 'styles', 'html', 'images', 'scripts', 'styles'], function (cb) {
+  gulp.task('default', ['nodemon', 'extras', 'fonts', 'styles', 'views', 'html', 'assets', 'scripts', 'styles'], function (cb) {
     bs.init({
       ghostMode: false,
       open: false,
@@ -56,7 +56,7 @@ if (!live) {
     var deployWatch = [
       deployDir + '/*.*',
       deployDir + '/fonts/*.*',
-      deployDir + '/images/*.*'
+      deployDir + '/assets/*.*'
     ];
     if (prod) {
       deployWatch.push('!' + deployDir + '/*.html');
@@ -66,7 +66,8 @@ if (!live) {
     gulp.watch('client/extras/*.*', ['extras']);
     gulp.watch('client/fonts/**/*', ['fonts']);
     gulp.watch('client/html/*.html', ['html']);
-    gulp.watch('client/images/**/*', ['images']);
+    gulp.watch('client/html/views/**/*.html', ['views']);
+    gulp.watch('client/assets/**/*', ['assets']);
 
     if (prod) {
       gulp.watch(['client/scripts/**/*.js', 'client/styles/*.scss'], ['html']);
@@ -75,7 +76,7 @@ if (!live) {
       gulp.watch('client/styles/*.scss', ['styles']);
     }
 
-    //gulp.watch('bower.json', ['wiredep', 'fonts']);
+    gulp.watch('client/bower.json', ['wiredep', 'fonts']);
 
   });
 
@@ -85,7 +86,14 @@ if (!live) {
     nodemon({
       script: 'server/index.js',
       watch: ['server'],
-      ext: 'js'
+      ext: 'js',
+      env: {
+        NODE_ENV: prod ? 'production' : 'development',
+        DEPLOY_DIR: prod ? 'deployProd' : 'deployDev',
+        PORT: 9001,
+        LIVE: live, //(always true)
+        LIVE_PORT: 9000
+      }
     }).once('start', cb);
   });
 }

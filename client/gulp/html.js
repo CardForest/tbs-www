@@ -1,4 +1,8 @@
-
+gulp.task('views', function () {
+  return gulp.src(__dirname + '/../html/views/**/*.html')
+    .pipe($.newer(deployDir))
+    .pipe(gulp.dest(deployDir + '/views'));
+});
 
 if (prod) {
   gulp.task('html', ['styles', 'scripts'], function () {
