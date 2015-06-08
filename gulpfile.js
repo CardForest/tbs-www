@@ -39,11 +39,14 @@ loadTasksFromDir('client/gulp');
 
 gulp.task('clean', require('del').bind(null, ['deployProd', 'deployDev']));
 
+var defaultTasks = ['wiredep', 'extras', 'fonts', 'styles', 'views', 'html', 'assets', 'scripts', 'styles'];
 if (!live) {
-  gulp.task('default', ['extras', 'fonts', 'styles', 'views', 'html', 'assets', 'scripts', 'styles']);
+  gulp.task('default', defaultTasks);
 } else { // live build
   global.bs = require('browser-sync').create();
-  gulp.task('default', ['nodemon', 'extras', 'fonts', 'styles', 'views', 'html', 'assets', 'scripts', 'styles'], function (cb) {
+
+  defaultTasks.unshift('nodemon');
+  gulp.task('default', defaultTasks, function (cb) {
     bs.init({
       ghostMode: false,
       open: false,

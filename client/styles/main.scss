@@ -14,8 +14,8 @@ html, body {
   font-family: 'Roboto', sans-serif;
   font-size:14px;
   height:100%;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
 }
 
 /* Toolbar area */
@@ -45,7 +45,7 @@ md-list .md-button.selected {
 }
 
 md-sidenav  md-list {
-  padding: 0px 0px 8px 0px;
+  padding: 0 0 8px 0;
 }
 
 
@@ -122,7 +122,7 @@ md-toolbar h1 {
   border-radius: 50%;
   display: inline-block;
   overflow: hidden;
-  margin: 0px;
+  margin: 0;
   vertical-align: middle;
   zoom:0.70;
   transform: translateZ(0);
@@ -140,3 +140,26 @@ span.name {
   font-size:1.1em;
   padding-left:5px;
 }
+
+.ng-cloak {
+  display: none !important;
+}
+
+.buttondemoBasicUsage section {
+  background: #f7f7f7;
+  border-radius: 3px;
+  text-align: center;
+  margin: 1em;
+  position: relative !important;
+  padding-bottom: 10px; }
+.buttondemoBasicUsage md-content {
+  margin-right: 7px; }
+.buttondemoBasicUsage section .md-button {
+  margin-top: 16px;
+  margin-bottom: 16px; }
+.buttondemoBasicUsage .label {
+  position: absolute;
+  bottom: 5px;
+  left: 7px;
+  font-size: 14px;
+  opacity: 0.54; }

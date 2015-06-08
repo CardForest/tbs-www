@@ -1,3 +1,6 @@
+
+var angular = require('angular');
+
 angular
   .module('users')
   .controller('UserController', [
